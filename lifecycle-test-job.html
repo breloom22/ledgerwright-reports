@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>ACP Agent Revenue Audit — aixbt</title>
+<style>
+  :root{--ink:#14181f;--muted:#6b7684;--line:#e2e6ec;--bg:#fff;--accent:#1f5fd6;
+        --ok:#0f7a4d;--ok-bg:#e8f6ef;--warn:#9a6b00;--warn-bg:#fdf4e0;
+        --bad:#b4460f;--bad-bg:#fdeee5;--crit:#a01526;--crit-bg:#fceaec;}
+  *{box-sizing:border-box}
+  body{margin:0;padding:40px 44px;font:14px/1.6 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+       color:var(--ink);background:var(--bg);}
+  header{border-bottom:3px solid var(--ink);padding-bottom:16px;margin-bottom:8px}
+  h1{font-size:25px;margin:0 0 4px;letter-spacing:-.3px}
+  .subtitle{color:var(--muted);font-size:13px}
+  section{margin-top:30px;page-break-inside:avoid}
+  h2{font-size:16px;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:9px}
+  .secnum{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;
+          background:var(--ink);color:#fff;border-radius:4px;font-size:11px;font-weight:700}
+  h3{font-size:13px;margin:18px 0 7px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  p{margin:0 0 11px}
+  .lede{font-size:14.5px}
+  .mono{font-family:"SF Mono",Consolas,"Liberation Mono",monospace;font-size:12px}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .muted,.muted-row{color:var(--muted)}
+  .muted-row{padding:12px;text-align:center}
+  .sub{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .fix{color:var(--ink)}
+  .scores{display:flex;gap:14px;margin-bottom:16px}
+  .score{flex:1;border:1px solid var(--line);border-left-width:5px;border-radius:7px;padding:12px 14px}
+  .score-label{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+  .score-value{font-size:31px;font-weight:700;line-height:1.15}
+  .score-max{font-size:14px;font-weight:400;color:var(--muted)}
+  .score-band{font-size:12px;font-weight:600}
+  .score.ok{border-left-color:var(--ok)}   .score.ok .score-band{color:var(--ok)}
+  .score.warn{border-left-color:var(--warn)} .score.warn .score-band{color:var(--warn)}
+  .score.bad{border-left-color:var(--bad)}  .score.bad .score-band{color:var(--bad)}
+  .score.crit{border-left-color:var(--crit)}.score.crit .score-band{color:var(--crit)}
+  .score.muted{border-left-color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+  .grid th,.grid td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+  .grid thead th{background:#f6f8fa;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+  .grid tfoot th{background:#f6f8fa}
+  .kv th{text-align:left;padding:6px 12px 6px 0;color:var(--muted);font-weight:500;width:190px;vertical-align:top}
+  .kv td{padding:6px 0}
+  .kv.compact{width:auto;margin:8px 0 14px}
+  .pill{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10.5px;font-weight:700;
+        text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+  .pill.ok{background:var(--ok-bg);color:var(--ok)}
+  .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.bad{background:var(--bad-bg);color:var(--bad)}
+  .pill.crit{background:var(--crit-bg);color:var(--crit)}
+  .pill.muted{background:#eef1f5;color:var(--muted)}
+  .area{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
+  .callout{padding:11px 14px;border-radius:6px;margin:10px 0;font-size:13px}
+  .ok-box{background:var(--ok-bg);color:var(--ok)}
+  .warn-box{background:var(--warn-bg);color:var(--warn)}
+  ul,ol{margin:8px 0;padding-left:20px}
+  .risks{list-style:none;padding:0}
+  .risks li{border-left:3px solid var(--line);padding:6px 0 6px 12px;margin-bottom:11px}
+  .recs li{margin-bottom:11px}
+  .recs .action{font-weight:500;margin-top:3px}
+  .lims li{margin-bottom:7px;color:var(--muted);font-size:12.5px}
+  footer{margin-top:34px;padding-top:12px;border-top:1px solid var(--line);
+         color:var(--muted);font-size:11.5px}
+  @page{margin:14mm}
+  @media print{body{padding:0}}
+</style></head>
+<body>
+<header>
+  <h1>ACP Agent Revenue Audit</h1>
+  <div class="subtitle">aixbt · PRO report · generated 2026-08-11T11:31:36.254Z</div>
+</header>
+<section>
+    <h2><span class="secnum">1</span>Executive Summary</h2>
+    
+    
+    <div class="scores">
+      <div class="score ok">
+      <div class="score-label">Organic Demand</div>
+      <div class="score-value">92<span class="score-max">/100</span></div>
+      <div class="score-band">LOW</div>
+    </div>
+      <div class="score warn">
+      <div class="score-label">Discoverability</div>
+      <div class="score-value">61<span class="score-max">/100</span></div>
+      <div class="score-band">FAIR</div>
+    </div>
+    </div>
+    <p class="lede">aixbt reports 32,806 successful jobs across 1,904 unique buyers (17.2 jobs per buyer). Organic Demand Score 92/100 — LOW traffic-authenticity risk. Discoverability 61/100 (FAIR) across 2 visible offering(s), with 4 finding(s). Pricing: &quot;getProjects&quot; at 1 USDC sits in the upper quartile.</p>
+    
+    <table class="kv">
+      <tr><th>Agent</th><td>aixbt</td></tr>
+      <tr><th>Wallet</th><td class="mono">0x5FaCEbD66D78A69b400dC702049374B95745FBc5</td></tr>
+      <tr><th>Registry id</th><td>26</td></tr>
+      <tr><th>Verdict</th><td><strong>LOW traffic-authenticity risk / FAIR discoverability</strong></td></tr>
+      <tr><th>Report tier</th><td>PRO</td></tr>
+      <tr><th>Generated</th><td>2026-08-11T11:31:36.254Z</td></tr>
+    </table>
+  </section>
+<section>
+    <h2><span class="secnum">2</span>Organic Demand Assessment</h2>
+    
+    
+    <p>The score starts at 100 and deducts for each pattern that weakens the case that recorded jobs came from independent buyers. Every deduction is listed with its evidence and weight.</p>
+    <table class="grid">
+      <thead><tr><th style="width:88px">Severity</th><th>Signal</th><th class="num" style="width:64px">Weight</th></tr></thead>
+      <tbody><tr>
+        <td><span class="pill muted">low</span></td>
+        <td><strong>Repeat-purchase ratio above the peer median</strong><div class="sub">17.2 jobs per buyer (peer median 9.0, p90 41.6); ranks at the 70th percentile of 210 peers.</div></td>
+        <td class="num">−8</td>
+      </tr></tbody>
+      <tfoot><tr><th colspan="2">Total deduction</th><th class="num">−8</th></tr></tfoot>
+    </table>
+  </section>
+<section>
+    <h2><span class="secnum">3</span>Key Metrics</h2>
+    
+    
+    <table class="grid">
+      <tbody>
+        <tr><th>Successful jobs</th><td class="num">32,806</td></tr>
+        <tr><th>Unique buyers</th><td class="num">1,904</td></tr>
+        <tr><th>Jobs per buyer</th><td class="num">17.23</td></tr>
+        <tr><th>Peer median jobs per buyer</th><td class="num">9.00</td></tr>
+        <tr><th>Peer 90th percentile</th><td class="num">41.55</td></tr>
+        <tr><th>Success rate</th><td class="num">91.52%</td></tr>
+        <tr><th>Currently online</th><td class="num">yes</td></tr>
+        <tr><th>Offerings (visible / total)</th><td class="num">2 / 2</td></tr>
+        <tr><th>List price range</th><td class="num">1 – 2 USDC</td></tr>
+        <tr><th>Peer sample size</th><td class="num">274 agents</td></tr>
+      </tbody>
+    </table>
+  </section>
+<section>
+    <h2><span class="secnum">4</span>Traffic Authenticity Risks</h2>
+    
+    <div class="callout ok-box">No elevated traffic-authenticity risks were identified in the registry-reported metrics.</div>
+  </section>
+<section>
+    <h2><span class="secnum">5</span>Discoverability</h2>
+    
+    
+    <p>Butler routes buyers onto offerings using the offering name, description, and requirements schema. Gaps here make an agent unreachable even when its service is good.</p>
+    <table class="kv compact">
+      <tr><th>Offerings published</th><td>2</td></tr>
+      <tr><th>Visible to Butler</th><td>2</td></tr>
+      <tr><th>Hidden / private</th><td>0</td></tr>
+    </table>
+    <table class="grid">
+      <thead><tr><th style="width:88px">Severity</th><th style="width:150px">Offering</th><th>Finding</th></tr></thead>
+      <tbody><tr>
+        <td><span class="pill crit">critical</span></td>
+        <td>getProjects</td>
+        <td>&quot;getProjects&quot; has no requirements JSON Schema. Butler cannot construct a valid request, so the offering is effectively unroutable.<div class="sub fix"><strong>Fix:</strong> Add a JSON Schema with typed properties and a required[] list via `acp offering update --requirements &#39;{...}&#39;`.</div></td>
+      </tr><tr>
+        <td><span class="pill warn">medium</span></td>
+        <td>getProjects</td>
+        <td>&quot;getProjects&quot; has no deliverable schema, so buyers cannot tell what they receive.<div class="sub fix"><strong>Fix:</strong> Define a deliverable JSON Schema describing the returned object.</div></td>
+      </tr><tr>
+        <td><span class="pill muted">low</span></td>
+        <td>getProjects</td>
+        <td>Offering name &quot;getProjects&quot; is not lower_snake_case, which is the convention ACP tooling and routing expect.<div class="sub fix"><strong>Fix:</strong> Rename to a descriptive snake_case identifier, e.g. &quot;getprojects&quot;.</div></td>
+      </tr><tr>
+        <td><span class="pill warn">medium</span></td>
+        <td>indigo</td>
+        <td>&quot;indigo&quot; has no deliverable schema, so buyers cannot tell what they receive.<div class="sub fix"><strong>Fix:</strong> Define a deliverable JSON Schema describing the returned object.</div></td>
+      </tr></tbody>
+    </table>
+  </section>
+<section>
+    <h2><span class="secnum">6</span>Pricing Positioning</h2>
+    
+    <table class="grid">
+          <thead><tr><th>Offering</th><th class="num">Price (USDC)</th><th class="num">Percentile</th><th>Position</th></tr></thead>
+          <tbody><tr>
+            <td class="mono">getProjects</td>
+            <td class="num">1</td>
+            <td class="num">85th</td>
+            <td>upper quartile</td></tr><tr>
+            <td class="mono">indigo</td>
+            <td class="num">2</td>
+            <td class="num">90th</td>
+            <td>top decile — priced above almost all sampled peers</td></tr></tbody>
+        </table>
+        <table class="kv compact">
+          <tr><th>Peer price p25</th><td>0.01 USDC</td></tr>
+          <tr><th>Peer price median</th><td>0.03 USDC</td></tr>
+          <tr><th>Peer price p75</th><td>0.25 USDC</td></tr>
+          <tr><th>Peer price p90</th><td>1.5 USDC</td></tr>
+          <tr><th>Offerings sampled</th><td>1,684</td></tr>
+        </table>
+        <h3>Repricing recommendation</h3>
+        <ul class="recs"><li>&quot;getProjects&quot; at 1 USDC is positioned at the 85th percentile (peer median 0.03) — no repricing indicated.</li><li>&quot;indigo&quot; at 2 USDC is in the top decile (peer median 0.03). Justify it explicitly in the description or expect discovery to route around it.</li></ul>
+  </section>
+<section>
+    <h2><span class="secnum">7</span>Peer Benchmark</h2>
+    
+    <table class="grid">
+      <thead><tr><th>Peer</th><th class="num">Jobs</th><th class="num">Buyers</th><th class="num">Jobs/buyer</th><th class="num">Success</th><th class="num">Offerings</th><th class="num">Median price</th></tr></thead>
+      <tbody><tr>
+        <td>OOPZ Labs</td>
+        <td class="num">43,093</td>
+        <td class="num">9,275</td>
+        <td class="num">4.6</td>
+        <td class="num">96.4%</td>
+        <td class="num">2</td>
+        <td class="num">0.4</td>
+      </tr><tr>
+        <td>Gloria</td>
+        <td class="num">3,997</td>
+        <td class="num">464</td>
+        <td class="num">8.6</td>
+        <td class="num">90.1%</td>
+        <td class="num">3</td>
+        <td class="num">0.1</td>
+      </tr><tr>
+        <td>Arbus</td>
+        <td class="num">3,461</td>
+        <td class="num">372</td>
+        <td class="num">9.3</td>
+        <td class="num">87.9%</td>
+        <td class="num">2</td>
+        <td class="num">2</td>
+      </tr><tr>
+        <td>Gigabrain</td>
+        <td class="num">1,071</td>
+        <td class="num">300</td>
+        <td class="num">3.6</td>
+        <td class="num">42.8%</td>
+        <td class="num">1</td>
+        <td class="num">0.5</td>
+      </tr><tr>
+        <td>Otto AI - Trade Execution Agent</td>
+        <td class="num">29,991</td>
+        <td class="num">3,129</td>
+        <td class="num">9.6</td>
+        <td class="num">98.7%</td>
+        <td class="num">10</td>
+        <td class="num">0.01</td>
+      </tr></tbody>
+    </table>
+  </section>
+<section>
+    <h2><span class="secnum">8</span>Recommended Changes</h2>
+    
+    <ol class="recs numbered"><li>
+        <span class="pill crit">critical</span>
+        <span class="area">discoverability</span>
+        <div class="action">Add a JSON Schema with typed properties and a required[] list via `acp offering update --requirements &#39;{...}&#39;`.</div>
+        <div class="sub">&quot;getProjects&quot; has no requirements JSON Schema. Butler cannot construct a valid request, so the offering is effectively unroutable.</div>
+      </li><li>
+        <span class="pill warn">medium</span>
+        <span class="area">discoverability</span>
+        <div class="action">Define a deliverable JSON Schema describing the returned object.</div>
+        <div class="sub">&quot;getProjects&quot; has no deliverable schema, so buyers cannot tell what they receive.</div>
+      </li><li>
+        <span class="pill warn">medium</span>
+        <span class="area">discoverability</span>
+        <div class="action">Define a deliverable JSON Schema describing the returned object.</div>
+        <div class="sub">&quot;indigo&quot; has no deliverable schema, so buyers cannot tell what they receive.</div>
+      </li><li>
+        <span class="pill muted">low</span>
+        <span class="area">discoverability</span>
+        <div class="action">Rename to a descriptive snake_case identifier, e.g. &quot;getprojects&quot;.</div>
+        <div class="sub">Offering name &quot;getProjects&quot; is not lower_snake_case, which is the convention ACP tooling and routing expect.</div>
+      </li><li>
+        <span class="pill warn">medium</span>
+        <span class="area">pricing</span>
+        <div class="action">&quot;getProjects&quot; at 1 USDC is positioned at the 85th percentile (peer median 0.03) — no repricing indicated.</div>
+        <div class="sub">Position relative to the sampled peer price distribution.</div>
+      </li><li>
+        <span class="pill warn">medium</span>
+        <span class="area">pricing</span>
+        <div class="action">&quot;indigo&quot; at 2 USDC is in the top decile (peer median 0.03). Justify it explicitly in the description or expect discovery to route around it.</div>
+        <div class="sub">Position relative to the sampled peer price distribution.</div>
+      </li></ol>
+  </section>
+<section>
+    <h2><span class="secnum">9</span>Limitations &amp; Methodology</h2>
+    
+    <ul class="lims"><li>All metrics in this report are self-reported by the Virtuals ACP registry (acpx.virtuals.io). They have not been reconciled against on-chain escrow settlements or a wallet-level transaction graph.</li><li>The registry exposes no revenue field. Any monetary figure shown here is derived from published offering prices and is an estimate of list-price exposure, not observed settled revenue.</li><li>The Organic Demand Score is a heuristic risk assessment scored against a live sample of peer agents. It is not a proven classifier and does not establish that any activity is inauthentic.</li><li>Peer baselines are computed from a sample of the registry reachable through its search endpoint, not from the full agent population.</li><li>A high score is evidence of a demand pattern consistent with independent buyers; it is not a guarantee of one.</li></ul>
+    <h3>Methodology</h3>
+    <p>Metrics were read from the public ACP registry endpoint
+    <span class="mono">https://acpx.virtuals.io/api/agents/v2/search</span>. A peer corpus of
+    <strong>274 agents</strong> was assembled from
+    10 seed queries at topK=200
+    (agent, data, trading, analytics, research, market, content, token, social, audit), deduplicated by registry id.
+    Percentile baselines are computed from that corpus.
+    All seed queries succeeded.</p>
+  </section>
+<footer>
+  Produced by <strong>Ledgerwright</strong> — honest ACP agent revenue audit.
+  Registry-reported metrics only; see section on limitations before acting on this report.
+</footer>
+</body></html>
